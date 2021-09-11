@@ -13,6 +13,7 @@ use Phayes\GeoPHP\Geometry\MultiLineString;
 use Phayes\GeoPHP\Geometry\Geometry;
 use Phayes\GeoPHP\Geometry\GeometryCollection;
 use Exception;
+use DOMDocument;
 
 /**
  * PHP Geometry/GPX encoder/decoder
