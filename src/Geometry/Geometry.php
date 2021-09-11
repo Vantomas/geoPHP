@@ -100,7 +100,7 @@ abstract class Geometry
     // 15.05.2016 rd1988
     // Fix for composer autoloading
     // We have to put full namespace if we are calling our class dynamically
-    $processor_type = "Phayes\\GeoPHP\\Adapters\\".$type_map[$format];
+    $processor_type = "\\Phayes\\GeoPHP\\Adapters\\".$type_map[$format];
 
     $processor = new $processor_type();
     array_unshift($args, $this);

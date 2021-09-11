@@ -53,7 +53,7 @@ class GeoPHP
     // 15.05.2016 rd1988
     // Fix for composer autoloading
     // We have to put full namespace if we are calling our class dynamically
-    $processor_type = "Phayes\\GeoPHP\\Adapters\\".$type_map[$type];
+    $processor_type = "\\Phayes\\GeoPHP\\Adapters\\".$type_map[$type];
 
     if (!$processor_type) {
       throw new \Exception('geoPHP could not find an adapter of type '.htmlentities($type));
@@ -214,7 +214,7 @@ class GeoPHP
       if (count($geometries) == 1) {
         return $geometries[0];
       } else {
-        $class = 'Multi'.$geom_types[0];
+        $class = "\\Phayes\\GeoPHP\\Geometry\\Multi".$geom_types[0];
         return new $class($geometries);
       }
 
