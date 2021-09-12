@@ -16,6 +16,8 @@ abstract class Geometry
   protected $geom_type;
   private $geos = null;
 
+  protected $properties = [];
+
   // Abtract: Standard
   // -----------------
   abstract public function area();
@@ -340,5 +342,25 @@ abstract class Geometry
   public function m() {
     // geoPHP only supports 2-dimensional space
     return null;
+  }
+
+  // Public - Properties functions
+  // ---------------------
+  public function getProperties(): array {
+    return $this->properties;
+  }
+
+  public function setProperties(array $properties): void {
+    $this->properties = $properties;
+  }
+
+  public function getProperty($property): ?mixed {
+    if(array_key_exists($property, $this->properties)) {
+      return $this->properties[$property];
+	}
+  }
+
+  public function setProperty($property, $value): void {
+    $this->properties[$property] = $value;
   }
 }
