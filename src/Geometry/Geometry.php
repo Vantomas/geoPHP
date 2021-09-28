@@ -354,7 +354,7 @@ abstract class Geometry
     $this->properties = $properties;
   }
 
-  public function getProperty($property): mixed {
+  public function getProperty($property) {
     return array_key_exists($property, $this->properties) ? $this->properties[$property] : NULL;
   }
 
