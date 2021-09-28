@@ -19,6 +19,8 @@ class KML extends GeoAdapter
 {
   private $namespace = false;
   private $nss = ''; // Name-space string. eg 'georss:'
+  private $properties = ['name', 'description']; //what properties parse from child
+
 
   /**
    * Read KML string into geometry objects
@@ -80,12 +82,28 @@ class KML extends GeoAdapter
     $placemark_elements = $this->xmlobj->getElementsByTagName('placemark');
     if ($placemark_elements->length) {
       foreach ($placemark_elements as $placemark) {
-        foreach ($placemark->childNodes as $child) {
+		$properties = [];
+		
+		foreach ($placemark->childNodes as $child) {
           // Node names are all the same, except for MultiGeometry, which maps to GeometryCollection
           $node_name = $child->nodeName == 'multigeometry' ? 'geometrycollection' : $child->nodeName;
-          if (array_key_exists($node_name, $geom_types)) {
+
+		  //Parse properties for child
+		  if(in_array($node_name, $this->properties)) {
+			  $properties[$node_name] = $child->nodeValue;
+		  }
+
+		  if (array_key_exists($node_name, $geom_types)) {
             $function = 'parse'.$geom_types[$node_name];
-            $geometries[] = $this->$function($child);
+			$geometry = $this->$function($child);
+
+			//Add properties to geometry
+			foreach($properties as $propkey => $propvalue) {
+				$geometry->setProperty($propkey, $propvalue);
+			}
+
+			//Add geometry
+            $geometries[] = $geometry;
           }
         }
       }
