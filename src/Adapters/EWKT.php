@@ -3,6 +3,7 @@
 namespace Phayes\GeoPHP\Adapters;
 
 use Phayes\GeoPHP\Adapters\WKT;
+use Phayes\GeoPHP\Geometry\Geometry;
 
 class EWKT extends WKT
 {
